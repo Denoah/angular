@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="courseListApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../ex/lib/angular.min.js"></script>
+    <link rel="stylesheet" href="../ex/lib/bootstrap.css">
+    <link rel="stylesheet" href="../ex/lib/bootstrap-theme.css">
+
+    <script>
+        var model = {
+            user: "User1",
+            courses: [{ name: "HTML, CSS", passed: true},
+                {name: "JavaScript Essential", passed: true},
+                {name: "JavaScript Advanced", passed: true},
+                {name: "HTML5. CSS3", passed: false},
+                {name: "AngularJS", passed: false}]
+        };
+        var courseListApp = angular.module("courseListApp", []);
+        courseListApp.controller("courseListCtrl", function($scope) {
+            $scope.list = model;
+            $scope.addNewCourse = function() {
+                $scope.list.courses.push({
+                    name: $scope.courseName,
+                    passed: "false"
+                });
+
+                $scope.courseName = "";
+
+
+            };
+
+            $scope.setStyle = function (passed) {
+                return passed ? "color:green": "color: red; font-weight: bold";
+            };
+
+            $scope.showText = function(passed) {
+                return passed ? "1" : "2";
+            };
+        });
+    </script>
+</head>
+<body ng-controller="courseListCtrl">
+    <div class="container">
+        <div class="page-header">
+            <div class="page-header">
+                <h1>Планировщик курсов</h1>
+                <h3>Пользователь: {{list.user}}. Количество курсов - {{list.courses.length}}</h3>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="input-group">
+                <input class="form-control" ng-model="courseName"/>
+                <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="addNewCourse()">Добавить</button>
+                </span>
+            </div>
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Курс</th>
+                    <th></th>
+                    <th>Пройден</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="course in list.courses">
+                        <td>{{course.name}}</td>
+                        <td><input type="checkbox" ng-model="course.passed"></td>
+                        <td>
+                            <span style="{{setStyle(course.passed)}}">
+                                {{course.passed}}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

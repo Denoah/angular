@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="lib/angular.min.js"></script>
+    <link rel="stylesheet" href="lib/bootstrap.css">
+    <link rel="stylesheet" href="lib/bootstrap-theme.css">
+    <script>
+        var model = "hi";
+        var app = angular.module("app", []);
+        app.controller("appCtrl", function($scope) {
+            $scope.items =[{name: "item1", value: "Value1"},
+                {name: "item2", value: "Value2"},
+                {name: "item3", value: "Value3"}]
+        })
+    </script>
+</head>
+<body>
+<div ng-controller="appCtrl">
+    <div>There are {{items.length}} items</div>
+    <div>There are <span ng-bind="items.length"></span> items</div>
+    <div ng-bind-template="First item: {{items[0].name}} Second item {{items[1].name}}"></div>
+    <div ng-non-bindable>
+        Angular users {{and}} characters
+    </div>
+</div>
+
+</body>
+</html>
